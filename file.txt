@@ -1,0 +1,30 @@
+<div id="EstimatedShippingDate">
+  <input id="estDateInput" type="hidden" name="properties[Estimated to ship between]" >
+  <p>
+    <i class="fa fa-check"></i>
+    <span>Estimated to ship between <span id="estDateFirst">N/A</span> and <span id="estDateLast">N/A</span></span>
+  </p>
+  <p>You will receive tracking information when it ships! <a href="/policies/shipping-policy" target="_blank">Our Shipping Policy</a></p>
+</div>
+
+<script type="text/javascript">
+  const estimatedShippingDate = document.querySelector('#EstimatedShippingDate');
+  const firstDateEl = estimatedShippingDate.querySelector('#estDateFirst');
+  const lastDateEl = estimatedShippingDate.querySelector('#estDateLast');
+  const estDateInput = estimatedShippingDate.querySelector('#estDateInput');
+  
+  const current = new Date();
+  const firstDate = new Date();
+  const lastDate = new Date();
+
+  firstDate.setDate(current.getDate() + {{ settings.min_shipping_date }});
+  lastDate.setDate(current.getDate() + {{ settings.max_shipping_date }});
+  
+  firstDateVal = firstDate.toLocaleDateString('en-US', { timeZone: 'America/Denver' });
+  lastDateVal = lastDate.toLocaleDateString('en-US', { timeZone: 'America/Denver' });
+  
+  firstDateEl.innerText = firstDateVal;
+  lastDateEl.innerText = lastDateVal;
+  estDateInput.value = firstDateVal + ' and ' + lastDateVal;
+
+</script>
